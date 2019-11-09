@@ -1,0 +1,40 @@
+t3a.micro in mumbai
+meet.3rdi.xyz
+
+
+jitsi- videoconference:
+-----------------------
+
+https://github.com/jitsi/docker-jitsi-meet
+
+git clone https://github.com/jitsi/docker-jitsi-meet.git
+cd docker-jitsi-meet
+cp env.example .env
+vi .env
+HTTP_PORT=80
+HTTPS_PORT=443
+PUBLIC_URL="https://meet.3rdi.xyz"
+DOCKER_HOST_ADDRESS=172.31.20.164
+ENABLE_LETSENCRYPT=1
+LETSENCRYPT_DOMAIN=meet.3rdi.xyz
+LETSENCRYPT_EMAIL=velmurugan@xyzi.ai
+:wq
+
+sudo docker-compose up -d
+sudo docker ps
+netstat -tnlup
+sudo docker exex -i -t dockerjitsimeet_web_1 /bin/bash
+apt update
+apt install vim*
+vi config/nginx/ssl.conf
+ssl_certificate /etc/letsencrypt/live/meet.3rdi.xyz/fullchain.pem
+ssl_certificate_key /etc/letsencrypt/live/meet.3rdi.xyz/privkey.pem
+:wq
+
+exit
+sudo docker restart dockerjitsimeet_web_1
+sudo docker logs -f dockerjitsimeet_web_1
+
+To check Browser:
+-----------------
+https://meet.3rdi.xyz
